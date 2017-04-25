@@ -21,6 +21,7 @@ export default class TodoApp extends React.Component{
     super(props);
     this.state = {
       data: []
+      // done:''
     }
     this.addTodo = this.addTodo.bind(this);
     this.handleRemove= this.handleRemove.bind(this);
@@ -69,16 +70,49 @@ export default class TodoApp extends React.Component{
   }
 
   toggleTodo(id){
-
    axios.patch(`${API_URL}/${id}/toggle`)
      .then((response) => {
+       const toggle = this.state.data.filter((todo) => {
+         if(todo.id === id)
+           return response.data.todo;
+           else return todo;
+       });
+
+      this.setState({data: toggle});
+
      },function (error) {
        console.log(error);
      });
-
-
-
  }
+
+//  toggleTodo(id){
+//    const remainder = this.state.data.filter((todo) => {
+//      if(todo.id !== id) return todo;
+//    });
+//
+//   axios.patch(`${API_URL}/${id}/toggle`)
+//     .then((response) => {
+//      this.setState({data: remainder});
+//      if(this.state.done===''){
+//      this.setState({done: 'true'});
+//      const todos = [...this.state.data,response.data.todo];
+//       this.setState({data: todos});
+//    }
+//    else{
+//     //  this.setState({done:''});
+//     this.state.done='';
+//       const todos = [response.data.todo,...this.state.data];
+//        this.setState({data: todos});
+//    }
+//
+//
+//     },function (error) {
+//       console.log(error);
+//     });
+//
+//
+//
+// }
 
   render(){
     // Render JSX
@@ -94,6 +128,8 @@ export default class TodoApp extends React.Component{
           remove={this.handleRemove}
 
           toggle={this.toggleTodo}
+
+          done={this.state.done}
 
         />
       </div>

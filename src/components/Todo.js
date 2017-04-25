@@ -2,7 +2,7 @@ import React from 'react'
 
 function Todo(props){
     // Each Todo
-  
+
     return (<li >
 
     <div id="checkBoxx" ><input type="checkbox" onChange={()=>{props.toggle(props.todo.id)}} /></div>

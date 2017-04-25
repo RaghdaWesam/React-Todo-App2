@@ -12,7 +12,7 @@ function TodoList (props){
 
   }
     const todoNode = alltodos.map((todo,i) => {
-      return (<Todo todo={todo} key={i} remove={props.remove} toggle={props.toggle}/>)
+      return (<Todo todo={todo} key={i} remove={props.remove} toggle={props.toggle} done={props.done}/>)
     });
     return (<ul>{todoNode}</ul>);
 
